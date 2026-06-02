@@ -1,0 +1,102 @@
+{
+  "users": [
+    {
+      "id": "admin_1",
+      "fullname": "Syed Hacker",
+      "country": "Pakistan",
+      "username": "Syedhacker",
+      "password": "0345Syeddlr",
+      "approved": true,
+      "isAdmin": true,
+      "createdAt": "2026-01-01T00:00:00Z"
+    }
+  ],
+  "pending_users": [],
+  "numbers": [
+    {
+      "id": "num_1",
+      "number": "+996550961591",
+      "country": "Kyrgyzstan",
+      "available": true,
+      "createdAt": "2026-06-02T12:00:00Z"
+    },
+    {
+      "id": "num_2",
+      "number": "+996550961652",
+      "country": "Kyrgyzstan",
+      "available": true,
+      "createdAt": "2026-06-02T12:00:00Z"
+    }
+  ],
+  "sms_history": [],
+  "bot_config": {
+    "botToken": "",
+    "otpGroupId": "",
+    "ownerChatId": "",
+    "mainChannelLink": "https://t.me/syedhacks",
+    "numbersChannelLink": "https://t.me/syedotpzone2",
+    "botRunning": false
+  },
+  "api_configs": {
+    "MAIT": {
+      "type": "api",
+      "api_url": "http://51.77.216.195/crapi/mait/viewstats",
+      "token": ""
+    },
+    "SMS HADI": {
+      "type": "api",
+      "api_url": "http://147.135.212.197/crapi/had/viewstats",
+      "token": "SlJSQjRSQldcko9XYX9Yh4p4eX5kl2tlRGKHYWhgWEhGgph7Undu"
+    },
+    "KONECTA": {
+      "type": "api",
+      "api_url": "http://51.77.216.195/crapi/konek/viewstats",
+      "token": ""
+    },
+    "ROXY": {
+      "type": "api",
+      "api_url": "http://51.77.216.195/crapi/rx/viewstats",
+      "token": "R1JSQjRSQmGJb4VhhnKUREmAlHtpV09pQo1ke35fbGdFV4Z3f2WT"
+    },
+    "TIME SMS": {
+      "type": "api",
+      "api_url": "http://147.135.212.197/crapi/time/viewstats",
+      "token": "QlFWRDRSQkeGlFJ8XoKQg1iBlXdYjGRUdmxRRYdUbYGFjYpqX19w"
+    },
+    "GAZA IPRN": {
+      "type": "api",
+      "api_url": "http://51.77.216.195/crapi/gaza/viewstats",
+      "token": ""
+    },
+    "PURPLE": {
+      "type": "purple_api",
+      "api_url": "http://137.74.1.203/crapi/reseller/mdr.php",
+      "token": "QVRRREVQfkJGUFdJ"
+    },
+    "IVASMS": {
+      "type": "websocket",
+      "ws_url": "wss://ivas.tempnum.qzz.io:2087/socket.io/?token=",
+      "token": ""
+    },
+    "MSI": {
+      "type": "login1",
+      "base_url": "http://145.239.130.45/ints",
+      "token": ""
+    },
+    "NUMBER": {
+      "type": "login1",
+      "base_url": "http://51.89.99.105/NumberPanel",
+      "token": ""
+    },
+    "GRAND": {
+      "type": "login1",
+      "base_url": "http://grand-panel.com",
+      "token": ""
+    },
+    "GREEN SMS": {
+      "type": "login2",
+      "base_url": "http://139.99.9.4",
+      "token": ""
+    }
+  }
+}

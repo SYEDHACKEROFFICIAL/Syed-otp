@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syed SMS Panel | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bolt"></i>
+                <span>SYED SMS</span>
+                <small>VIP PANEL</small>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="numbers">
+                    <i class="fas fa-database"></i>
+                    <span>Get Numbers</span>
+                </a>
+                <a href="#" class="nav-item" data-page="sms">
+                    <i class="fas fa-envelope"></i>
+                    <span>Today's SMS</span>
+                </a>
+                <a href="#" class="nav-item" data-page="live">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <span>Live SMS</span>
+                </a>
+                <a href="#" class="nav-item" data-page="history">
+                    <i class="fas fa-history"></i>
+                    <span>SMS History</span>
+                </a>
+                <a href="#" class="nav-item" data-page="bots">
+                    <i class="fas fa-robot"></i>
+                    <span>Connect Bots</span>
+                </a>
+                <a href="#" class="nav-item" data-page="profile">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <i class="fas fa-user-astronaut"></i>
+                    <span id="sidebarUsername">User</span>
+                </div>
+                <button onclick="logout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="page-title">SYED SMS PANEL // <span id="pageTitle">DASHBOARD</span></div>
+                <div class="top-bar-actions">
+                    <span class="status-badge"><i class="fas fa-circle"></i> SYSTEM ONLINE</span>
+                    <div class="logo-icons">
+                        <a href="#" id="whatsappLink" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" id="telegramLink" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-area" id="contentArea">
+                <!-- Dashboard Page -->
+                <div id="dashboardPage" class="page active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div class="stat-info">
+                                <h3>Active Numbers</h3>
+                                <span class="stat-value" id="activeNumbers">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-envelope-open-text"></i>
+                            <div class="stat-info">
+                                <h3>Today's SMS</h3>
+                                <span class="stat-value" id="todaySmsCount">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-robot"></i>
+                            <div class="stat-info">
+                                <h3>Bot Status</h3>
+                                <span class="stat-value" id="botStatus">STOPPED</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connected APIs Section -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-plug"></i> Connected APIs</h3>
+                        </div>
+                        <div class="apis-grid" id="apisGrid">
+                            <div class="api-card"><h4>MAIT</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>SMS HADI</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>KONECTA</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>ROXY</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>TIME SMS</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>GAZA IPRN</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>PURPLE</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>IVASMS</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>MSI</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>NUMBER</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>GRAND</h4><span>🟢 ONLINE</span></div>
+                            <div class="api-card"><h4>GREEN SMS</h4><span>🟢 ONLINE</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-clock"></i> Recent OTP Activity</h3>
+                        </div>
+                        <div class="recent-list" id="recentActivity">
+                            <div class="no-data">No recent OTPs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Numbers Page -->
+                <div id="numbersPage" class="page">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-database"></i> Available Numbers</h3>
+                        </div>
+                        <div class="numbers-container" id="numbersContainer">
+                            <div class="no-data">Loading numbers...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's SMS Page -->
+                <div id="smsPage" class="page">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-envelope"></i> Today's SMS</h3>
+                        </div>
+                        <div class="sms-list" id="todaySMSList">
+                            <div class="no-data">No SMS today</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live SMS Page -->
+                <div id="livePage" class="page">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-broadcast-tower"></i> Live OTP Stream</h3>
+                        </div>
+                        <div class="live-container" id="liveMessages">
+                            <div class="no-data">Click Start Live to begin</div>
+                        </div>
+                        <button class="start-live-btn" onclick="startLiveSMS()">
+                            <i class="fas fa-play"></i> START LIVE
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SMS History Page -->
+                <div id="historyPage" class="page">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-history"></i> SMS History</h3>
+                        </div>
+                        <div class="sms-list" id="historyList">
+                            <div class="no-data">No history found</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bots Page -->
+                <div id="botsPage" class="page">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-robot"></i> Bot Configuration</h3>
+                        </div>
+                        <div class="bot-config">
+                            <div class="config-group">
+                                <label><i class="fas fa-key"></i> BOT TOKEN *</label>
+                                <input type="text" id="botToken" placeholder="Enter bot token from @BotFather">
+                            </div>
+                            <div class="config-group">
+                                <label><i class="fas fa-users"></i> OTP GROUP ID *</label>
+                                <input type="text" id="otpGroupId" placeholder="Enter group ID (e.g., -1001234567890)">
+                            </div>
+                            <div class="config-group">
+                                <label><i class="fas fa-user"></i> OWNER CHAT ID (Optional)</label>
+                                <input type="text" id="ownerChatId" placeholder="Your Telegram chat ID">
+                            </div>
+                            <div class="config-group">
+                                <label><i class="fas fa-link"></i> FIRST BUTTON NAME</label>
+                                <input type="text" id="firstBtnName" placeholder="e.g., ☎️ NUMBERS" value="☎️ NUMBERS">
+                            </div>
+                            <div class="config-group">
+                                <label><i class="fas fa-link"></i> FIRST BUTTON LINK</label>
+                                <input type="text" id="firstBtnLink" placeholder="https://t.me/your_numbers_channel">
+                            </div>
+                            <div class="config-group">
+                                <label><i class="fas fa-link"></i> SECOND BUTTON NAME</label>
+                                <input type="text" id="secondBtnName" placeholder="e.g., 👻 MAIN CHANNEL" value="👻 MAIN CHANNEL">
+                            </div>
+                            <div class="config-group">
+                                <label><i class="fas fa-link"></i> SECOND BUTTON LINK</label>
+                                <input type="text" id="secondBtnLink" placeholder="https://t.me/your_main_channel">
+                            </div>
+                            <button onclick="saveBotConfig()" class="action-btn">
+                                <i class="fas fa-save"></i> SAVE CONFIGURATION
+                            </button>
+                            <div class="bot-status">
+                                <span>BOT STATUS: </span>
+                                <span id="botRunningStatus">🔴 STOPPED</span>
+                            </div>
+                            <div class="bot-actions">
+                                <button onclick="startBot()" class="start-btn"><i class="fas fa-play"></i> START BOT</button>
+                                <button onclick="stopBot()" class="stop-btn"><i class="fas fa-stop"></i> STOP BOT</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Page -->
+                <div id="profilePage" class="page">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3><i class="fas fa-user-cog"></i> My Profile</h3>
+                        </div>
+                        <div class="profile-info" id="profileInfo">
+                            <div class="profile-field">
+                                <label>Username:</label>
+                                <span id="profileUsername">-</span>
+                            </div>
+                            <div class="profile-field">
+                                <label>Full Name:</label>
+                                <span id="profileFullname">-</span>
+                            </div>
+                            <div class="profile-field">
+                                <label>Country:</label>
+                                <span id="profileCountry">-</span>
+                            </div>
+                            <div class="profile-field">
+                                <label>Joined:</label>
+                                <span id="profileJoined">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syed SMS Panel | Authentication</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="cyber-grid"></div>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo-container">
+                    <i class="fas fa-bolt"></i>
+                    <span class="logo-text">SYED SMS PANEL</span>
+                </div>
+                <div class="version-badge">v3.0 // VIP EDITION</div>
+                <p class="subtitle">SYSTEM AUTHENTICATION</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">LOGIN</button>
+                <button class="tab-btn" data-tab="register">REGISTER</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="loginUsername" placeholder="USERNAME" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" placeholder="PASSWORD" required>
+                </div>
+                <div class="security-check">
+                    <span>SECURITY CHECK:</span>
+                    <span id="securityQuestion">3 + 4 = ?</span>
+                    <input type="text" id="securityAnswer" placeholder="Your answer">
+                </div>
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-arrow-right"></i> INITIALIZE CONNECTION
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user-circle"></i>
+                    <input type="text" id="regFullname" placeholder="FULL NAME" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-globe"></i>
+                    <select id="regCountry">
+                        <option value="">SELECT COUNTRY</option>
+                        <option>Pakistan</option>
+                        <option>India</option>
+                        <option>USA</option>
+                        <option>UAE</option>
+                        <option>UK</option>
+                        <option>Indonesia</option>
+                        <option>Zambia</option>
+                        <option>Mozambique</option>
+                        <option>Sudan</option>
+                        <option>Kyrgyzstan</option>
+                        <option>Ukraine</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="regUsername" placeholder="USERNAME" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="regPassword" placeholder="PASSWORD" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-check-circle"></i>
+                    <input type="password" id="regConfirmPass" placeholder="CONFIRM PASSWORD" required>
+                </div>
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-paper-plane"></i> SUBMIT REGISTRATION
+                </button>
+                <div class="info-note">
+                    <i class="fas fa-info-circle"></i> Registration requires admin approval
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="official-support">
+        Official Support Channel: <a href="#">@sms_panel_official</a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

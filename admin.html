@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Syed SMS Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <div class="admin-container">
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <i class="fas fa-crown"></i>
+                <h2>ADMIN PANEL</h2>
+                <small>SYED SMS VIP</small>
+            </div>
+            <nav class="admin-nav-menu">
+                <a href="#" class="admin-nav active" data-tab="pending">
+                    <i class="fas fa-users"></i> Pending Requests
+                    <span class="badge" id="pendingBadge">0</span>
+                </a>
+                <a href="#" class="admin-nav" data-tab="users">
+                    <i class="fas fa-user-check"></i> All Users
+                </a>
+                <a href="#" class="admin-nav" data-tab="numbers">
+                    <i class="fas fa-database"></i> Numbers Management
+                </a>
+                <a href="#" class="admin-nav" data-tab="api-config">
+                    <i class="fas fa-key"></i> API Configuration
+                </a>
+                <a href="#" class="admin-nav" data-tab="settings">
+                    <i class="fas fa-cog"></i> Panel Settings
+                </a>
+            </nav>
+            <button onclick="adminLogout()" class="admin-logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        
+        <div class="admin-content">
+            <!-- Pending Requests Tab -->
+            <div id="pendingTab" class="admin-tab active">
+                <h2><i class="fas fa-clock"></i> Pending User Approvals</h2>
+                <div class="admin-card">
+                    <div id="pendingList" class="user-list">
+                        <div class="no-data">No pending requests</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Users Tab -->
+            <div id="usersTab" class="admin-tab">
+                <h2><i class="fas fa-users"></i> Registered Users</h2>
+                <div class="admin-card">
+                    <div id="usersList" class="user-list">
+                        <div class="no-data">No users found</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Numbers Management Tab -->
+            <div id="numbersTab" class="admin-tab">
+                <h2><i class="fas fa-plus-circle"></i> Add Numbers</h2>
+                <div class="admin-card">
+                    <div class="add-number-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="text" id="newNumber" placeholder="e.g., +996550961591">
+                            </div>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <select id="numberCountry">
+                                    <option value="Pakistan">Pakistan 🇵🇰</option>
+                                    <option value="India">India 🇮🇳</option>
+                                    <option value="Indonesia">Indonesia 🇮🇩</option>
+                                    <option value="Zambia">Zambia 🇿🇲</option>
+                                    <option value="Mozambique">Mozambique 🇲🇿</option>
+                                    <option value="Sudan">Sudan 🇸🇩</option>
+                                    <option value="Kyrgyzstan">Kyrgyzstan 🇰🇬</option>
+                                    <option value="Ukraine">Ukraine 🇺🇦</option>
+                                    <option value="Venezuela">Venezuela 🇻🇪</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="addNewNumber()" class="action-btn">
+                            <i class="fas fa-plus"></i> Add Number
+                        </button>
+                    </div>
+                </div>
+                
+                <h2 style="margin-top: 30px;"><i class="fas fa-list"></i> All Numbers</h2>
+                <div class="admin-card">
+                    <div id="numbersManageList" class="numbers-list">
+                        <div class="no-data">No numbers added</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Configuration Tab -->
+            <div id="apiConfigTab" class="admin-tab">
+                <h2><i class="fas fa-plug"></i> API Configuration</h2>
+                <div class="admin-card">
+                    <div class="api-configs">
+                        <div class="api-list">
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> MAIT - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> SMS HADI - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> KONECTA - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> ROXY - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> TIME SMS - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> GAZA IPRN - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> PURPLE - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> IVASMS - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> MSI - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> NUMBER - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> GRAND - Configured
+                            </div>
+                            <div class="api-item">
+                                <i class="fas fa-check-circle"></i> GREEN SMS - Configured
+                            </div>
+                        </div>
+                        <div class="info-text">
+                            <i class="fas fa-info-circle"></i> All API tokens are pre-configured in the system
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Settings Tab -->
+            <div id="settingsTab" class="admin-tab">
+                <h2><i class="fas fa-cog"></i> Panel Settings</h2>
+                <div class="admin-card">
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>WhatsApp Channel Link</label>
+                            <input type="text" id="whatsappChannelLink" placeholder="https://whatsapp.com/channel/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Telegram Channel Link</label>
+                            <input type="text" id="telegramChannelLink" placeholder="https://t.me/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Support Channel</label>
+                            <input type="text" id="supportChannel" placeholder="@sms_panel_official">
+                        </div>
+                        <button onclick="savePanelSettings()" class="action-btn">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

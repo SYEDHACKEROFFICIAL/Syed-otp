@@ -3,177 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Syed SMS Panel</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>ADMIN PANEL | IPRN SMS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Courier New', monospace;
+            color: #c084fc;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #0a0a0a;
+            border-right: 1px solid #c084fc;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            color: #ec4899;
+            font-size: 18px;
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #c084fc;
+        }
+
+        .admin-nav {
+            display: block;
+            padding: 10px;
+            color: #a855f7;
+            text-decoration: none;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        .admin-nav:hover, .admin-nav.active {
+            color: #ec4899;
+            background: #c084fc10;
+            border-left: 2px solid #ec4899;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .card {
+            background: #111;
+            border: 1px solid #c084fc;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 12px;
+            border-bottom: 1px solid #c084fc;
+            background: #c084fc10;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .user-item, .number-item {
+            background: #111;
+            border: 1px solid #c084fc;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .approve-btn, .reject-btn {
+            padding: 4px 12px;
+            border: none;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .approve-btn {
+            background: #c084fc;
+            color: #0a0a0a;
+        }
+
+        .reject-btn {
+            background: #ec4899;
+            color: #fff;
+        }
+
+        .add-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .add-form input, .add-form select {
+            flex: 1;
+            padding: 8px;
+            background: #0a0a0a;
+            border: 1px solid #c084fc;
+            color: #c084fc;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            background: none;
+            border: 1px solid #c084fc;
+            color: #c084fc;
+            cursor: pointer;
+        }
+
+        .tab {
+            display: none;
+        }
+
+        .tab.active {
+            display: block;
+        }
+
+        .api-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .api-item {
+            background: #111;
+            border: 1px solid #c084fc;
+            padding: 8px;
+            font-size: 12px;
+        }
+    </style>
 </head>
-<body class="admin-body">
+<body>
     <div class="admin-container">
-        <div class="admin-sidebar">
-            <div class="admin-logo">
-                <i class="fas fa-crown"></i>
-                <h2>ADMIN PANEL</h2>
-                <small>SYED SMS VIP</small>
-            </div>
-            <nav class="admin-nav-menu">
-                <a href="#" class="admin-nav active" data-tab="pending">
-                    <i class="fas fa-users"></i> Pending Requests
-                    <span class="badge" id="pendingBadge">0</span>
-                </a>
-                <a href="#" class="admin-nav" data-tab="users">
-                    <i class="fas fa-user-check"></i> All Users
-                </a>
-                <a href="#" class="admin-nav" data-tab="numbers">
-                    <i class="fas fa-database"></i> Numbers Management
-                </a>
-                <a href="#" class="admin-nav" data-tab="api-config">
-                    <i class="fas fa-key"></i> API Configuration
-                </a>
-                <a href="#" class="admin-nav" data-tab="settings">
-                    <i class="fas fa-cog"></i> Panel Settings
-                </a>
+        <div class="sidebar">
+            <h2>👑 ADMIN PANEL</h2>
+            <nav>
+                <div class="admin-nav active" data-tab="pending">⏳ PENDING REQUESTS <span id="pendingBadge">0</span></div>
+                <div class="admin-nav" data-tab="users">👥 ALL USERS</div>
+                <div class="admin-nav" data-tab="numbers">📱 NUMBERS MANAGEMENT</div>
+                <div class="admin-nav" data-tab="api">🔌 API CONFIGURATION</div>
+                <div class="admin-nav" data-tab="settings">⚙️ PANEL SETTINGS</div>
             </nav>
-            <button onclick="adminLogout()" class="admin-logout">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
+            <div style="margin-top: 30px;">
+                <button class="btn" onclick="logout()" style="width:100%;">🚪 LOGOUT</button>
+            </div>
         </div>
-        
-        <div class="admin-content">
-            <!-- Pending Requests Tab -->
-            <div id="pendingTab" class="admin-tab active">
-                <h2><i class="fas fa-clock"></i> Pending User Approvals</h2>
-                <div class="admin-card">
-                    <div id="pendingList" class="user-list">
-                        <div class="no-data">No pending requests</div>
-                    </div>
+
+        <div class="content">
+            <div id="pendingTab" class="tab active">
+                <div class="card">
+                    <div class="card-header">⏳ PENDING USER APPROVALS</div>
+                    <div class="card-body" id="pendingList">No pending requests</div>
                 </div>
             </div>
 
-            <!-- All Users Tab -->
-            <div id="usersTab" class="admin-tab">
-                <h2><i class="fas fa-users"></i> Registered Users</h2>
-                <div class="admin-card">
-                    <div id="usersList" class="user-list">
-                        <div class="no-data">No users found</div>
-                    </div>
+            <div id="usersTab" class="tab">
+                <div class="card">
+                    <div class="card-header">👥 REGISTERED USERS</div>
+                    <div class="card-body" id="usersList">No users found</div>
                 </div>
             </div>
 
-            <!-- Numbers Management Tab -->
-            <div id="numbersTab" class="admin-tab">
-                <h2><i class="fas fa-plus-circle"></i> Add Numbers</h2>
-                <div class="admin-card">
-                    <div class="add-number-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="text" id="newNumber" placeholder="e.g., +996550961591">
-                            </div>
-                            <div class="form-group">
-                                <label>Country</label>
-                                <select id="numberCountry">
-                                    <option value="Pakistan">Pakistan 🇵🇰</option>
-                                    <option value="India">India 🇮🇳</option>
-                                    <option value="Indonesia">Indonesia 🇮🇩</option>
-                                    <option value="Zambia">Zambia 🇿🇲</option>
-                                    <option value="Mozambique">Mozambique 🇲🇿</option>
-                                    <option value="Sudan">Sudan 🇸🇩</option>
-                                    <option value="Kyrgyzstan">Kyrgyzstan 🇰🇬</option>
-                                    <option value="Ukraine">Ukraine 🇺🇦</option>
-                                    <option value="Venezuela">Venezuela 🇻🇪</option>
-                                </select>
-                            </div>
+            <div id="numbersTab" class="tab">
+                <div class="card">
+                    <div class="card-header">➕ ADD NUMBERS</div>
+                    <div class="card-body">
+                        <div class="add-form">
+                            <input type="text" id="newNumber" placeholder="+996550961591">
+                            <select id="numberCountry">
+                                <option>Pakistan</option><option>Indonesia</option><option>Zambia</option>
+                                <option>Mozambique</option><option>Sudan</option><option>Kyrgyzstan</option>
+                                <option>Ukraine</option><option>Venezuela</option>
+                            </select>
+                            <button class="btn" onclick="addNumber()">+ ADD</button>
                         </div>
-                        <button onclick="addNewNumber()" class="action-btn">
-                            <i class="fas fa-plus"></i> Add Number
-                        </button>
-                    </div>
-                </div>
-                
-                <h2 style="margin-top: 30px;"><i class="fas fa-list"></i> All Numbers</h2>
-                <div class="admin-card">
-                    <div id="numbersManageList" class="numbers-list">
-                        <div class="no-data">No numbers added</div>
+                        <div id="numbersList"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- API Configuration Tab -->
-            <div id="apiConfigTab" class="admin-tab">
-                <h2><i class="fas fa-plug"></i> API Configuration</h2>
-                <div class="admin-card">
-                    <div class="api-configs">
-                        <div class="api-list">
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> MAIT - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> SMS HADI - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> KONECTA - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> ROXY - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> TIME SMS - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> GAZA IPRN - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> PURPLE - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> IVASMS - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> MSI - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> NUMBER - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> GRAND - Configured
-                            </div>
-                            <div class="api-item">
-                                <i class="fas fa-check-circle"></i> GREEN SMS - Configured
-                            </div>
-                        </div>
-                        <div class="info-text">
-                            <i class="fas fa-info-circle"></i> All API tokens are pre-configured in the system
-                        </div>
+            <div id="apiTab" class="tab">
+                <div class="card">
+                    <div class="card-header">🔌 API CONFIGURATION</div>
+                    <div class="card-body">
+                        <div class="api-list" id="apiList"></div>
+                        <div style="margin-top:15px; color:#555;">✅ All API tokens are pre-configured</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Panel Settings Tab -->
-            <div id="settingsTab" class="admin-tab">
-                <h2><i class="fas fa-cog"></i> Panel Settings</h2>
-                <div class="admin-card">
-                    <div class="settings-form">
-                        <div class="form-group">
+            <div id="settingsTab" class="tab">
+                <div class="card">
+                    <div class="card-header">⚙️ PANEL SETTINGS</div>
+                    <div class="card-body">
+                        <div class="config-group">
                             <label>WhatsApp Channel Link</label>
-                            <input type="text" id="whatsappChannelLink" placeholder="https://whatsapp.com/channel/...">
+                            <input type="text" id="whatsappLink" style="width:100%; padding:8px; background:#0a0a0a; border:1px solid #c084fc; color:#c084fc;">
                         </div>
-                        <div class="form-group">
+                        <div class="config-group" style="margin-top:10px;">
                             <label>Telegram Channel Link</label>
-                            <input type="text" id="telegramChannelLink" placeholder="https://t.me/...">
+                            <input type="text" id="telegramLink" style="width:100%; padding:8px; background:#0a0a0a; border:1px solid #c084fc; color:#c084fc;">
                         </div>
-                        <div class="form-group">
-                            <label>Support Channel</label>
-                            <input type="text" id="supportChannel" placeholder="@sms_panel_official">
-                        </div>
-                        <button onclick="savePanelSettings()" class="action-btn">
-                            <i class="fas fa-save"></i> Save Settings
-                        </button>
+                        <button class="btn" onclick="saveSettings()" style="margin-top:15px;">SAVE SETTINGS</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        function loadPending() {
+            const pending = JSON.parse(localStorage.getItem('pending') || '[]');
+            const container = document.getElementById('pendingList');
+            document.getElementById('pendingBadge').innerHTML = pending.length;
+            
+            if(pending.length === 0) {
+                container.innerHTML = 'No pending requests';
+                return;
+            }
+            
+            container.innerHTML = pending.map(user => `
+                <div class="user-item">
+                    <div>
+                        <strong>${user.fullname}</strong><br>
+                        @${user.username} | ${user.country}
+                    </div>
+                    <div>
+                        <button class="approve-btn" onclick="approveUser('${user.id}')">✓ Approve</button>
+                        <button class="reject-btn" onclick="rejectUser('${user.id}')">✗ Reject</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function approveUser(id) {
+            const pending = JSON.parse(localStorage.getItem('pending') || '[]');
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = pending.findIndex(u => u.id == id);
+            
+            if(userIndex !== -1) {
+                const user = pending[userIndex];
+                user.approved = true;
+                users.push(user);
+                pending.splice(userIndex, 1);
+                localStorage.setItem('pending', JSON.stringify(pending));
+                localStorage.setItem('users', JSON.stringify(users));
+                loadPending();
+                loadUsers();
+                alert('User approved!');
+            }
+        }
+
+        function rejectUser(id) {
+            const pending = JSON.parse(localStorage.getItem('pending') || '[]');
+            const filtered = pending.filter(u => u.id != id);
+            localStorage.setItem('pending', JSON.stringify(filtered));
+            loadPending();
+            alert('User rejected!');
+        }
+
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const container = document.getElementById('usersList');
+            
+            if(users.length === 0) {
+                container.innerHTML = 'No users found';
+                return;
+            }
+            
+            container.innerHTML = users.map(user => `
+                <div class="user-item">
+                    <div>
+                        <strong>${user.fullname}</strong><br>
+                        @${user.username} | ${user.country}<br>
+                        <small>Joined: ${new Date(user.createdAt).toLocaleDateString()}</small>
+                    </div>
+                    <div>✅ Approved</div>
+                </div>
+            `).join('');
+        }
+
+        function loadNumbers() {
+            const numbers = JSON.parse(localStorage.getItem('system_numbers') || '[]');
+            const container = document.getElementById('numbersList');
+            
+            if(numbers.length === 0) {
+                container.innerHTML = 'No numbers added';
+                return;
+            }
+            
+            container.innerHTML = numbers.map(num => `
+                <div class="number-item">
+                    <span>📱 ${num.number} (${num.country})</span>
+                    <button class="reject-btn" onclick="deleteNumber('${num.id}')">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function addNumber() {
+            const number = document.getElementById('newNumber').value;
+            const country = document.getElementById('numberCountry').value;
+            
+            if(!number) {
+                alert('Enter number!');
+                return;
+            }
+            
+            const numbers = JSON.parse(localStorage.getItem('system_numbers') || '[]');
+            numbers.push({id: Date.now(), number, country});
+            localStorage.setItem('system_numbers', JSON.stringify(numbers));
+            document.getElementById('newNumber').value = '';
+            loadNumbers();
+            alert('Number added!');
+        }
+
+        function deleteNumber(id) {
+            const numbers = JSON.parse(localStorage.getItem('system_numbers') || '[]');
+            const filtered = numbers.filter(n => n.id != id);
+            localStorage.setItem('system_numbers', JSON.stringify(filtered));
+            loadNumbers();
+            alert('Number deleted!');
+        }
+
+        function loadAPIs() {
+            const apis = ['MAIT', 'SMS HADI', 'KONECTA', 'ROXY', 'TIME SMS', 'GAZA IPRN', 'PURPLE', 'IVASMS', 'MSI', 'NUMBER', 'GRAND', 'GREEN SMS'];
+            const container = document.getElementById('apiList');
+            container.innerHTML = apis.map(api => `<div class="api-item">✅ ${api} - Configured</div>`).join('');
+        }
+
+        function saveSettings() {
+            const whatsapp = document.getElementById('whatsappLink').value;
+            const telegram = document.getElementById('telegramLink').value;
+            localStorage.setItem('panel_settings', JSON.stringify({whatsapp, telegram}));
+            alert('Settings saved!');
+        }
+
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('panel_settings') || '{}');
+            if(document.getElementById('whatsappLink')) document.getElementById('whatsappLink').value = settings.whatsapp || '';
+            if(document.getElementById('telegramLink')) document.getElementById('telegramLink').value = settings.telegram || '';
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        // Tab switching
+        document.querySelectorAll('.admin-nav').forEach(nav => {
+            nav.addEventListener('click', () => {
+                const tab = nav.dataset.tab;
+                document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
+                nav.classList.add('active');
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.getElementById(`${tab}Tab`).classList.add('active');
+            });
+        });
+
+        // Init
+        loadPending();
+        loadUsers();
+        loadNumbers();
+        loadAPIs();
+        loadSettings();
+
+        // Sample numbers if empty
+        if(!localStorage.getItem('system_numbers')) {
+            localStorage.setItem('system_numbers', JSON.stringify([
+                {id: 1, number: '+996550961591', country: 'Kyrgyzstan'},
+                {id: 2, number: '+996550961652', country: 'Kyrgyzstan'},
+                {id: 3, number: '+628123456789', country: 'Indonesia'}
+            ]));
+        }
+    </script>
 </body>
 </html>

@@ -3,263 +3,524 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syed SMS Panel | Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>IPRN SMS PANEL | DASHBOARD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Courier New', 'Monaco', monospace;
+            color: #c084fc;
+        }
+
+        /* Cyber Grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(#c084fc08 1px, transparent 1px), linear-gradient(90deg, #c084fc08 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #0a0a0a;
+            border-right: 1px solid #c084fc;
+            padding: 20px;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #c084fc;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            color: #ec4899;
+            font-size: 16px;
+        }
+
+        .sidebar-header p {
+            color: #a855f7;
+            font-size: 10px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 10px;
+            color: #a855f7;
+            text-decoration: none;
+            font-size: 12px;
+            border-left: 2px solid transparent;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: #ec4899;
+            border-left-color: #ec4899;
+            background: #c084fc10;
+        }
+
+        .user-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #c084fc;
+            font-size: 11px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 8px;
+            background: none;
+            border: 1px solid #ec4899;
+            color: #ec4899;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #c084fc;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 18px;
+            color: #ec4899;
+        }
+
+        /* Cards */
+        .card {
+            background: #111;
+            border: 1px solid #c084fc;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 12px;
+            border-bottom: 1px solid #c084fc;
+            background: #c084fc10;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        /* Target Region Grid */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .region-btn {
+            background: #111;
+            border: 1px solid #c084fc;
+            color: #c084fc;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .region-btn:hover {
+            background: #c084fc;
+            color: #0a0a0a;
+        }
+
+        /* Numbers List */
+        .number-item {
+            background: #111;
+            border: 1px solid #c084fc;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .number-item:hover {
+            background: #c084fc20;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: #ec4899;
+            cursor: pointer;
+        }
+
+        /* SMS Item */
+        .sms-item {
+            background: #111;
+            border-left: 3px solid #ec4899;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sms-otp {
+            font-size: 20px;
+            color: #ec4899;
+            margin: 5px 0;
+        }
+
+        /* Bot Config */
+        .config-group {
+            margin-bottom: 15px;
+        }
+
+        .config-group label {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 5px;
+            color: #a855f7;
+        }
+
+        .config-group input {
+            width: 100%;
+            padding: 8px;
+            background: #0a0a0a;
+            border: 1px solid #c084fc;
+            color: #c084fc;
+        }
+
+        .btn-primary {
+            background: none;
+            border: 1px solid #c084fc;
+            color: #c084fc;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #c084fc;
+            color: #0a0a0a;
+        }
+
+        .bot-status {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #ec489920;
+            color: #ec4899;
+            font-size: 11px;
+        }
+
+        /* API Grid */
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .api-card {
+            background: #111;
+            border: 1px solid #c084fc;
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
-<body class="dashboard-body">
-    <div class="dashboard-container">
+<body>
+    <div class="dashboard">
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-header">
-                <i class="fas fa-bolt"></i>
-                <span>SYED SMS</span>
-                <small>VIP PANEL</small>
+                <h2>IPRN SMS PANEL</h2>
+                <p>v2.0 // CYBER EDITION</p>
             </div>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item active" data-page="dashboard">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="nav-item" data-page="numbers">
-                    <i class="fas fa-database"></i>
-                    <span>Get Numbers</span>
-                </a>
-                <a href="#" class="nav-item" data-page="sms">
-                    <i class="fas fa-envelope"></i>
-                    <span>Today's SMS</span>
-                </a>
-                <a href="#" class="nav-item" data-page="live">
-                    <i class="fas fa-broadcast-tower"></i>
-                    <span>Live SMS</span>
-                </a>
-                <a href="#" class="nav-item" data-page="history">
-                    <i class="fas fa-history"></i>
-                    <span>SMS History</span>
-                </a>
-                <a href="#" class="nav-item" data-page="bots">
-                    <i class="fas fa-robot"></i>
-                    <span>Connect Bots</span>
-                </a>
-                <a href="#" class="nav-item" data-page="profile">
-                    <i class="fas fa-user-cog"></i>
-                    <span>Profile</span>
-                </a>
+            <nav>
+                <a href="#" class="nav-item active" data-page="dashboard">📊 DASHBOARD</a>
+                <a href="#" class="nav-item" data-page="numbers">📱 GET NUMBERS</a>
+                <a href="#" class="nav-item" data-page="sms">📨 TODAY'S SMS</a>
+                <a href="#" class="nav-item" data-page="stats">📈 MY SMS STATS</a>
+                <a href="#" class="nav-item" data-page="console">💻 CONSOLE</a>
+                <a href="#" class="nav-item" data-page="live">🔴 LIVE SMS</a>
+                <a href="#" class="nav-item" data-page="history">📜 SMS HISTORY</a>
+                <a href="#" class="nav-item" data-page="bots">🤖 CONNECT BOTS</a>
+                <a href="#" class="nav-item" data-page="profile">👤 PROFILE</a>
             </nav>
-            <div class="sidebar-footer">
-                <div class="user-info">
-                    <i class="fas fa-user-astronaut"></i>
-                    <span id="sidebarUsername">User</span>
-                </div>
-                <button onclick="logout()" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
+            <div class="user-info">
+                <span id="sidebarUsername">User</span>
+                <button class="logout-btn" onclick="logout()">SYSTEM LOGOUT</button>
             </div>
         </div>
 
         <!-- Main Content -->
-        <div class="main-content">
+        <div class="main">
             <div class="top-bar">
-                <div class="page-title">SYED SMS PANEL // <span id="pageTitle">DASHBOARD</span></div>
-                <div class="top-bar-actions">
-                    <span class="status-badge"><i class="fas fa-circle"></i> SYSTEM ONLINE</span>
-                    <div class="logo-icons">
-                        <a href="#" id="whatsappLink" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" id="telegramLink" target="_blank"><i class="fab fa-telegram"></i></a>
-                    </div>
+                <div class="page-title" id="pageTitle">DASHBOARD</div>
+                <div class="logo-icons">
+                    <span>🔔 Notifications</span>
                 </div>
             </div>
 
-            <div class="content-area" id="contentArea">
-                <!-- Dashboard Page -->
-                <div id="dashboardPage" class="page active">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <i class="fas fa-mobile-alt"></i>
-                            <div class="stat-info">
-                                <h3>Active Numbers</h3>
-                                <span class="stat-value" id="activeNumbers">0</span>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-envelope-open-text"></i>
-                            <div class="stat-info">
-                                <h3>Today's SMS</h3>
-                                <span class="stat-value" id="todaySmsCount">0</span>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-robot"></i>
-                            <div class="stat-info">
-                                <h3>Bot Status</h3>
-                                <span class="stat-value" id="botStatus">STOPPED</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Connected APIs Section -->
-                    <div class="section-card">
-                        <div class="section-header">
-                            <h3><i class="fas fa-plug"></i> Connected APIs</h3>
-                        </div>
-                        <div class="apis-grid" id="apisGrid">
-                            <div class="api-card"><h4>MAIT</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>SMS HADI</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>KONECTA</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>ROXY</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>TIME SMS</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>GAZA IPRN</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>PURPLE</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>IVASMS</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>MSI</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>NUMBER</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>GRAND</h4><span>🟢 ONLINE</span></div>
-                            <div class="api-card"><h4>GREEN SMS</h4><span>🟢 ONLINE</span></div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Activity -->
-                    <div class="section-card">
-                        <div class="section-header">
-                            <h3><i class="fas fa-clock"></i> Recent OTP Activity</h3>
-                        </div>
-                        <div class="recent-list" id="recentActivity">
-                            <div class="no-data">No recent OTPs</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Numbers Page -->
-                <div id="numbersPage" class="page">
-                    <div class="section-card">
-                        <div class="section-header">
-                            <h3><i class="fas fa-database"></i> Available Numbers</h3>
-                        </div>
-                        <div class="numbers-container" id="numbersContainer">
-                            <div class="no-data">Loading numbers...</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Today's SMS Page -->
-                <div id="smsPage" class="page">
-                    <div class="section-card">
-                        <div class="section-header">
-                            <h3><i class="fas fa-envelope"></i> Today's SMS</h3>
-                        </div>
-                        <div class="sms-list" id="todaySMSList">
-                            <div class="no-data">No SMS today</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Live SMS Page -->
-                <div id="livePage" class="page">
-                    <div class="section-card">
-                        <div class="section-header">
-                            <h3><i class="fas fa-broadcast-tower"></i> Live OTP Stream</h3>
-                        </div>
-                        <div class="live-container" id="liveMessages">
-                            <div class="no-data">Click Start Live to begin</div>
-                        </div>
-                        <button class="start-live-btn" onclick="startLiveSMS()">
-                            <i class="fas fa-play"></i> START LIVE
-                        </button>
-                    </div>
-                </div>
-
-                <!-- SMS History Page -->
-                <div id="historyPage" class="page">
-                    <div class="section-card">
-                        <div class="section-header">
-                            <h3><i class="fas fa-history"></i> SMS History</h3>
-                        </div>
-                        <div class="sms-list" id="historyList">
-                            <div class="no-data">No history found</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bots Page -->
-                <div id="botsPage" class="page">
-                    <div class="section-card">
-                        <div class="section-header">
-                            <h3><i class="fas fa-robot"></i> Bot Configuration</h3>
-                        </div>
-                        <div class="bot-config">
-                            <div class="config-group">
-                                <label><i class="fas fa-key"></i> BOT TOKEN *</label>
-                                <input type="text" id="botToken" placeholder="Enter bot token from @BotFather">
-                            </div>
-                            <div class="config-group">
-                                <label><i class="fas fa-users"></i> OTP GROUP ID *</label>
-                                <input type="text" id="otpGroupId" placeholder="Enter group ID (e.g., -1001234567890)">
-                            </div>
-                            <div class="config-group">
-                                <label><i class="fas fa-user"></i> OWNER CHAT ID (Optional)</label>
-                                <input type="text" id="ownerChatId" placeholder="Your Telegram chat ID">
-                            </div>
-                            <div class="config-group">
-                                <label><i class="fas fa-link"></i> FIRST BUTTON NAME</label>
-                                <input type="text" id="firstBtnName" placeholder="e.g., ☎️ NUMBERS" value="☎️ NUMBERS">
-                            </div>
-                            <div class="config-group">
-                                <label><i class="fas fa-link"></i> FIRST BUTTON LINK</label>
-                                <input type="text" id="firstBtnLink" placeholder="https://t.me/your_numbers_channel">
-                            </div>
-                            <div class="config-group">
-                                <label><i class="fas fa-link"></i> SECOND BUTTON NAME</label>
-                                <input type="text" id="secondBtnName" placeholder="e.g., 👻 MAIN CHANNEL" value="👻 MAIN CHANNEL">
-                            </div>
-                            <div class="config-group">
-                                <label><i class="fas fa-link"></i> SECOND BUTTON LINK</label>
-                                <input type="text" id="secondBtnLink" placeholder="https://t.me/your_main_channel">
-                            </div>
-                            <button onclick="saveBotConfig()" class="action-btn">
-                                <i class="fas fa-save"></i> SAVE CONFIGURATION
-                            </button>
-                            <div class="bot-status">
-                                <span>BOT STATUS: </span>
-                                <span id="botRunningStatus">🔴 STOPPED</span>
-                            </div>
-                            <div class="bot-actions">
-                                <button onclick="startBot()" class="start-btn"><i class="fas fa-play"></i> START BOT</button>
-                                <button onclick="stopBot()" class="stop-btn"><i class="fas fa-stop"></i> STOP BOT</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Profile Page -->
-                <div id="profilePage" class="page">
-                    <div class="section-card">
-                        <div class="section-header">
-                            <h3><i class="fas fa-user-cog"></i> My Profile</h3>
-                        </div>
-                        <div class="profile-info" id="profileInfo">
-                            <div class="profile-field">
-                                <label>Username:</label>
-                                <span id="profileUsername">-</span>
-                            </div>
-                            <div class="profile-field">
-                                <label>Full Name:</label>
-                                <span id="profileFullname">-</span>
-                            </div>
-                            <div class="profile-field">
-                                <label>Country:</label>
-                                <span id="profileCountry">-</span>
-                            </div>
-                            <div class="profile-field">
-                                <label>Joined:</label>
-                                <span id="profileJoined">-</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="contentArea"></div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        let currentUser = null;
+
+        function checkAuth() {
+            const userStr = localStorage.getItem('currentUser');
+            if (!userStr) {
+                window.location.href = 'index.html';
+                return null;
+            }
+            return JSON.parse(userStr);
+        }
+
+        function loadPage(page) {
+            const content = document.getElementById('contentArea');
+            const pageTitle = document.getElementById('pageTitle');
+            
+            pageTitle.textContent = page.toUpperCase();
+
+            if(page === 'dashboard') {
+                content.innerHTML = getDashboardHTML();
+                loadDashboardData();
+            } else if(page === 'numbers') {
+                content.innerHTML = getNumbersHTML();
+                loadNumbers();
+            } else if(page === 'sms') {
+                content.innerHTML = getSMSHTML();
+                loadTodaySMS();
+            } else if(page === 'stats') {
+                content.innerHTML = getStatsHTML();
+            } else if(page === 'console') {
+                content.innerHTML = getConsoleHTML();
+            } else if(page === 'live') {
+                content.innerHTML = getLiveHTML();
+                startLive();
+            } else if(page === 'history') {
+                content.innerHTML = getHistoryHTML();
+                loadHistory();
+            } else if(page === 'bots') {
+                content.innerHTML = getBotsHTML();
+                loadBotConfig();
+            } else if(page === 'profile') {
+                content.innerHTML = getProfileHTML();
+            }
+        }
+
+        function getDashboardHTML() {
+            return `
+                <div class="card">
+                    <div class="card-header">🎯 SELECT TARGET REGION</div>
+                    <div class="card-body">
+                        <div class="region-grid">
+                            <button class="region-btn" onclick="selectRegion('Indonesia')">🇮🇩 Indonesia</button>
+                            <button class="region-btn" onclick="selectRegion('Zambia')">🇿🇲 Zambia</button>
+                            <button class="region-btn" onclick="selectRegion('Mozambique')">🇲🇿 Mozambique</button>
+                            <button class="region-btn" onclick="selectRegion('Sudan')">🇸🇩 Sudan</button>
+                            <button class="region-btn" onclick="selectRegion('Kyrgyzstan')">🇰🇬 Kyrgyzstan</button>
+                            <button class="region-btn" onclick="selectRegion('Ukraine')">🇺🇦 Ukraine</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">🔌 CONNECTED APIs</div>
+                    <div class="card-body">
+                        <div class="api-grid" id="apiGrid"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">📨 RECENT OTPs</div>
+                    <div class="card-body" id="recentList"></div>
+                </div>
+            `;
+        }
+
+        function getNumbersHTML() {
+            return `
+                <div class="card">
+                    <div class="card-header">📱 ACQUIRE ASSET</div>
+                    <div class="card-body">
+                        <button class="btn-primary" onclick="getNumber()" style="width:100%; margin-bottom:15px;"># GET NUMBER</button>
+                        <div id="numbersList"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">⚡ ACTIVE EXTRACTIONS</div>
+                    <div class="card-body" id="activeExtractions"></div>
+                </div>
+            `;
+        }
+
+        function getSMSHTML() {
+            return `
+                <div class="card">
+                    <div class="card-header">📨 TODAY'S SMS</div>
+                    <div class="card-body" id="todaySMSList"></div>
+                </div>
+            `;
+        }
+
+        function getBotsHTML() {
+            return `
+                <div class="card">
+                    <div class="card-header">🤖 BOT CONFIGURATION</div>
+                    <div class="card-body">
+                        <div class="config-group">
+                            <label>BOT TOKEN *</label>
+                            <input type="text" id="botToken" placeholder="Enter bot token">
+                        </div>
+                        <div class="config-group">
+                            <label>OTP GROUP ID *</label>
+                            <input type="text" id="otpGroupId" placeholder="Enter group ID">
+                        </div>
+                        <div class="config-group">
+                            <label>NUMBERS CHANNEL LINK</label>
+                            <input type="text" id="numbersLink" placeholder="https://t.me/...">
+                        </div>
+                        <div class="config-group">
+                            <label>MAIN CHANNEL LINK</label>
+                            <input type="text" id="mainLink" placeholder="https://t.me/...">
+                        </div>
+                        <button class="btn-primary" onclick="saveBotConfig()">UPDATE BOT CONFIG</button>
+                        <div style="margin-top:15px;">
+                            <span>BOT STATUS: </span>
+                            <span class="bot-status" id="botStatus">STOPPED</span>
+                        </div>
+                        <div style="margin-top:10px;">
+                            <button class="btn-primary" onclick="startBot()">START BOT</button>
+                            <button class="btn-primary" onclick="stopBot()">STOP BOT</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function loadDashboardData() {
+            const apiGrid = document.getElementById('apiGrid');
+            const apis = ['MAIT', 'SMS HADI', 'KONECTA', 'ROXY', 'TIME SMS', 'GAZA IPRN', 'PURPLE', 'IVASMS', 'MSI', 'NUMBER', 'GRAND', 'GREEN SMS'];
+            if(apiGrid) {
+                apiGrid.innerHTML = apis.map(api => `<div class="api-card">🔌 ${api}<br><span style="color:#ec4899">🟢 ACTIVE</span></div>`).join('');
+            }
+        }
+
+        function loadNumbers() {
+            const numbers = JSON.parse(localStorage.getItem('system_numbers') || '[]');
+            const container = document.getElementById('numbersList');
+            if(container) {
+                if(numbers.length === 0) {
+                    container.innerHTML = '<div style="text-align:center; color:#555;">No numbers available</div>';
+                } else {
+                    container.innerHTML = numbers.map(num => `
+                        <div class="number-item" onclick="copyNumber('${num.number}')">
+                            <span>📱 ${num.number}</span>
+                            <span class="copy-btn">📋 COPY</span>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function loadBotConfig() {
+            const config = JSON.parse(localStorage.getItem(`bot_config_${currentUser?.username}`) || '{}');
+            if(document.getElementById('botToken')) document.getElementById('botToken').value = config.botToken || '';
+            if(document.getElementById('otpGroupId')) document.getElementById('otpGroupId').value = config.otpGroupId || '';
+            if(document.getElementById('numbersLink')) document.getElementById('numbersLink').value = config.numbersLink || '';
+            if(document.getElementById('mainLink')) document.getElementById('mainLink').value = config.mainLink || '';
+        }
+
+        function saveBotConfig() {
+            const config = {
+                botToken: document.getElementById('botToken').value,
+                otpGroupId: document.getElementById('otpGroupId').value,
+                numbersLink: document.getElementById('numbersLink').value,
+                mainLink: document.getElementById('mainLink').value
+            };
+            localStorage.setItem(`bot_config_${currentUser.username}`, JSON.stringify(config));
+            alert('Bot configuration saved!');
+        }
+
+        function startBot() {
+            localStorage.setItem(`bot_running_${currentUser.username}`, 'true');
+            document.getElementById('botStatus').innerHTML = '🟢 RUNNING';
+            alert('Bot started!');
+        }
+
+        function stopBot() {
+            localStorage.setItem(`bot_running_${currentUser.username}`, 'false');
+            document.getElementById('botStatus').innerHTML = '🔴 STOPPED';
+            alert('Bot stopped!');
+        }
+
+        function selectRegion(region) {
+            alert(`Selected region: ${region}\nListening for payload...`);
+        }
+
+        function getNumber() {
+            const numbers = JSON.parse(localStorage.getItem('system_numbers') || '[]');
+            if(numbers.length > 0) {
+                const randomNum = numbers[Math.floor(Math.random() * numbers.length)];
+                alert(`Number claimed: ${randomNum.number}`);
+            } else {
+                alert('No numbers available!');
+            }
+        }
+
+        function copyNumber(num) {
+            navigator.clipboard.writeText(num);
+            alert(`Copied: ${num}`);
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        // Initialize
+        currentUser = checkAuth();
+        if(currentUser) {
+            document.getElementById('sidebarUsername').innerHTML = currentUser.username || 'User';
+            loadPage('dashboard');
+
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                    loadPage(item.dataset.page);
+                });
+            });
+        }
+    </script>
 </body>
 </html>

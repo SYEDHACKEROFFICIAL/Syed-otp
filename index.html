@@ -3,96 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syed SMS Panel | Authentication</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>IPRN SMS PANEL | SYSTEM AUTHENTICATION V2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            font-family: 'Courier New', 'Monaco', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00ff9d;
+        }
+
+        .container {
+            background: rgba(10, 10, 20, 0.9);
+            border: 1px solid #00ff9d;
+            border-radius: 8px;
+            padding: 30px;
+            width: 450px;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            color: #00ff9d;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        .header h2 {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #888;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .tab-btn.active {
+            color: #00ff9d;
+            border-bottom: 2px solid #00ff9d;
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            background: #0a0a15;
+            border: 1px solid #333;
+            color: #00ff9d;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #00ff9d;
+        }
+
+        .security-box {
+            background: #0a0a15;
+            border: 1px solid #333;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .security-box span {
+            display: block;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .security-box .question {
+            font-size: 18px;
+            color: #00ff9d;
+            margin: 10px 0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a15;
+            border: 1px solid #00ff9d;
+            color: #00ff9d;
+            font-family: monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #00ff9d;
+            color: #0a0a15;
+        }
+
+        .info-note {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .support {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .support a {
+            color: #00ff9d;
+            text-decoration: none;
+        }
+    </style>
 </head>
-<body class="auth-page">
-    <div class="cyber-grid"></div>
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <div class="logo-container">
-                    <i class="fas fa-bolt"></i>
-                    <span class="logo-text">SYED SMS PANEL</span>
-                </div>
-                <div class="version-badge">v3.0 // VIP EDITION</div>
-                <p class="subtitle">SYSTEM AUTHENTICATION</p>
-            </div>
-            
-            <div class="auth-tabs">
-                <button class="tab-btn active" data-tab="login">LOGIN</button>
-                <button class="tab-btn" data-tab="register">REGISTER</button>
-            </div>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>IPRN SMS PANEL</h1>
+            <h2>SYSTEM AUTHENTICATION V2.0</h2>
+        </div>
 
-            <!-- Login Form -->
-            <form id="loginForm" class="auth-form active">
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="loginUsername" placeholder="USERNAME" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="loginPassword" placeholder="PASSWORD" required>
-                </div>
-                <div class="security-check">
-                    <span>SECURITY CHECK:</span>
-                    <span id="securityQuestion">3 + 4 = ?</span>
-                    <input type="text" id="securityAnswer" placeholder="Your answer">
-                </div>
-                <button type="submit" class="auth-btn">
-                    <i class="fas fa-arrow-right"></i> INITIALIZE CONNECTION
-                </button>
-            </form>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('login')">LOGIN</button>
+            <button class="tab-btn" onclick="showTab('register')">REGISTER</button>
+        </div>
 
-            <!-- Register Form -->
-            <form id="registerForm" class="auth-form">
-                <div class="input-group">
-                    <i class="fas fa-user-circle"></i>
-                    <input type="text" id="regFullname" placeholder="FULL NAME" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-globe"></i>
-                    <select id="regCountry">
-                        <option value="">SELECT COUNTRY</option>
-                        <option>Pakistan</option>
-                        <option>India</option>
-                        <option>USA</option>
-                        <option>UAE</option>
-                        <option>UK</option>
-                        <option>Indonesia</option>
-                        <option>Zambia</option>
-                        <option>Mozambique</option>
-                        <option>Sudan</option>
-                        <option>Kyrgyzstan</option>
-                        <option>Ukraine</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="regUsername" placeholder="USERNAME" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="regPassword" placeholder="PASSWORD" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-check-circle"></i>
-                    <input type="password" id="regConfirmPass" placeholder="CONFIRM PASSWORD" required>
-                </div>
-                <button type="submit" class="auth-btn">
-                    <i class="fas fa-paper-plane"></i> SUBMIT REGISTRATION
-                </button>
-                <div class="info-note">
-                    <i class="fas fa-info-circle"></i> Registration requires admin approval
-                </div>
-            </form>
+        <!-- LOGIN FORM -->
+        <div id="loginForm" class="form active">
+            <div class="input-group">
+                <label>USERNAME</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            <div class="input-group">
+                <label>PASSWORD</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <div class="security-box">
+                <span>SECURITY CHECK:</span>
+                <span class="question" id="securityQuestion">3 + 4 = ?</span>
+                <input type="text" id="securityAnswer" placeholder="Your answer" style="width:100%; margin-top:10px;">
+            </div>
+            <button class="btn" onclick="handleLogin()">INITIALIZE CONNECTION</button>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div id="registerForm" class="form">
+            <div class="input-group">
+                <label>FULL NAME</label>
+                <input type="text" id="fullname" placeholder="Enter your full name">
+            </div>
+            <div class="input-group">
+                <label>COUNTRY</label>
+                <select id="country">
+                    <option value="">Select Country</option>
+                    <option>Pakistan</option>
+                    <option>India</option>
+                    <option>Indonesia</option>
+                    <option>Zambia</option>
+                    <option>Mozambique</option>
+                    <option>Sudan</option>
+                    <option>Kyrgyzstan</option>
+                    <option>Ukraine</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>USERNAME</label>
+                <input type="text" id="regUsername" placeholder="Choose username">
+            </div>
+            <div class="input-group">
+                <label>PASSWORD</label>
+                <input type="password" id="regPassword" placeholder="Choose password">
+            </div>
+            <div class="input-group">
+                <label>CONFIRM PASSWORD</label>
+                <input type="password" id="confirmPass" placeholder="Confirm password">
+            </div>
+            <button class="btn" onclick="handleRegister()">SUBMIT REGISTRATION</button>
+            <div class="info-note">
+                <i>🔒 Registration requires admin approval</i>
+            </div>
+        </div>
+
+        <div class="support">
+            Official Support Channel: <a href="#">@sms_panel_official</a>
         </div>
     </div>
-    <div class="official-support">
-        Official Support Channel: <a href="#">@sms_panel_official</a>
-    </div>
-    <script src="script.js"></script>
+
+    <script>
+        // Show tab function
+        function showTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabs = document.querySelectorAll('.tab-btn');
+            
+            if(tab === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+
+        // Random security question
+        const num1 = Math.floor(Math.random() * 10) + 1;
+        const num2 = Math.floor(Math.random() * 10) + 1;
+        document.getElementById('securityQuestion').innerHTML = num1 + ' + ' + num2 + ' = ?';
+        const correctAnswer = (num1 + num2).toString();
+
+        // Handle Login
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const securityAnswer = document.getElementById('securityAnswer').value;
+
+            if(securityAnswer !== correctAnswer) {
+                alert('Security check failed!');
+                return;
+            }
+
+            // Check admin
+            if(username === 'Syedhacker' && password === '0345Syeddlr') {
+                alert('Access Granted! Welcome Admin.');
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            // Check normal users
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if(user && user.approved) {
+                alert('Access Granted! Welcome ' + username);
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                window.location.href = 'dashboard.html';
+            } else if(user && !user.approved) {
+                alert('Account pending approval!');
+            } else {
+                alert('Invalid credentials!');
+            }
+        }
+
+        // Handle Register
+        function handleRegister() {
+            const fullname = document.getElementById('fullname').value;
+            const country = document.getElementById('country').value;
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPass = document.getElementById('confirmPass').value;
+
+            if(!fullname || !country || !username || !password) {
+                alert('Please fill all fields!');
+                return;
+            }
+
+            if(password !== confirmPass) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const pending = JSON.parse(localStorage.getItem('pending') || '[]');
+
+            if(users.find(u => u.username === username) || pending.find(u => u.username === username)) {
+                alert('Username already exists!');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now(),
+                fullname: fullname,
+                country: country,
+                username: username,
+                password: password,
+                approved: false,
+                createdAt: new Date().toISOString()
+            };
+
+            pending.push(newUser);
+            localStorage.setItem('pending', JSON.stringify(pending));
+
+            alert('Registration submitted! Wait for admin approval.');
+            showTab('login');
+        }
+
+        // Initialize users
+        if(!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify([]));
+        }
+        if(!localStorage.getItem('pending')) {
+            localStorage.setItem('pending', JSON.stringify([]));
+        }
+    </script>
 </body>
 </html>

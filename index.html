@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPRN SMS PANEL | SYSTEM AUTHENTICATION V2.0</title>
+    <title>IPRN SMS PANEL | SYSTEM AUTHENTICATION</title>
     <style>
         * {
             margin: 0;
@@ -12,47 +12,63 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            background: #0a0a0a;
             font-family: 'Courier New', 'Monaco', monospace;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #00ff9d;
+            color: #c084fc;
+        }
+
+        /* Cyber Grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(#c084fc10 1px, transparent 1px),
+                linear-gradient(90deg, #c084fc10 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
         }
 
         .container {
-            background: rgba(10, 10, 20, 0.9);
-            border: 1px solid #00ff9d;
-            border-radius: 8px;
-            padding: 30px;
+            background: #0a0a0a;
+            border: 1px solid #c084fc;
+            padding: 40px;
             width: 450px;
-            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.3);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 15px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #c084fc;
+            padding-bottom: 20px;
         }
 
         .header h1 {
-            color: #00ff9d;
-            font-size: 20px;
+            color: #c084fc;
+            font-size: 22px;
             letter-spacing: 2px;
         }
 
         .header h2 {
-            color: #888;
-            font-size: 14px;
-            margin-top: 5px;
+            color: #a855f7;
+            font-size: 12px;
+            margin-top: 8px;
         }
 
         .tabs {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             border-bottom: 1px solid #333;
         }
 
@@ -67,8 +83,8 @@
         }
 
         .tab-btn.active {
-            color: #00ff9d;
-            border-bottom: 2px solid #00ff9d;
+            color: #c084fc;
+            border-bottom: 2px solid #c084fc;
         }
 
         .form {
@@ -86,66 +102,77 @@
         .input-group label {
             display: block;
             margin-bottom: 5px;
-            color: #888;
-            font-size: 12px;
+            color: #a855f7;
+            font-size: 11px;
+            letter-spacing: 1px;
         }
 
         .input-group input, .input-group select {
             width: 100%;
             padding: 10px;
-            background: #0a0a15;
-            border: 1px solid #333;
-            color: #00ff9d;
+            background: #111;
+            border: 1px solid #c084fc;
+            color: #c084fc;
             font-family: monospace;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: #00ff9d;
+            border-color: #ec4899;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
         }
 
         .security-box {
-            background: #0a0a15;
-            border: 1px solid #333;
+            background: #111;
+            border: 1px solid #c084fc;
             padding: 15px;
-            margin: 15px 0;
+            margin: 20px 0;
             text-align: center;
         }
 
         .security-box span {
             display: block;
-            color: #888;
-            font-size: 12px;
+            color: #a855f7;
+            font-size: 11px;
         }
 
         .security-box .question {
             font-size: 18px;
-            color: #00ff9d;
+            color: #ec4899;
             margin: 10px 0;
+        }
+
+        .security-box input {
+            background: #0a0a0a;
+            border: 1px solid #c084fc;
+            color: #c084fc;
+            padding: 8px;
+            width: 100%;
+            text-align: center;
         }
 
         .btn {
             width: 100%;
             padding: 12px;
-            background: #0a0a15;
-            border: 1px solid #00ff9d;
-            color: #00ff9d;
+            background: #111;
+            border: 1px solid #c084fc;
+            color: #c084fc;
             font-family: monospace;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .btn:hover {
-            background: #00ff9d;
-            color: #0a0a15;
+            background: #c084fc;
+            color: #0a0a0a;
         }
 
         .info-note {
             text-align: center;
             margin-top: 15px;
-            font-size: 11px;
+            font-size: 10px;
             color: #555;
         }
 
@@ -154,12 +181,12 @@
             margin-top: 20px;
             padding-top: 15px;
             border-top: 1px solid #333;
-            font-size: 11px;
+            font-size: 10px;
             color: #555;
         }
 
         .support a {
-            color: #00ff9d;
+            color: #ec4899;
             text-decoration: none;
         }
     </style>
@@ -176,7 +203,7 @@
             <button class="tab-btn" onclick="showTab('register')">REGISTER</button>
         </div>
 
-        <!-- LOGIN FORM -->
+        <!-- LOGIN -->
         <div id="loginForm" class="form active">
             <div class="input-group">
                 <label>USERNAME</label>
@@ -189,12 +216,12 @@
             <div class="security-box">
                 <span>SECURITY CHECK:</span>
                 <span class="question" id="securityQuestion">3 + 4 = ?</span>
-                <input type="text" id="securityAnswer" placeholder="Your answer" style="width:100%; margin-top:10px;">
+                <input type="text" id="securityAnswer" placeholder="Your answer">
             </div>
             <button class="btn" onclick="handleLogin()">INITIALIZE CONNECTION</button>
         </div>
 
-        <!-- REGISTER FORM -->
+        <!-- REGISTER -->
         <div id="registerForm" class="form">
             <div class="input-group">
                 <label>FULL NAME</label>
@@ -203,7 +230,7 @@
             <div class="input-group">
                 <label>COUNTRY</label>
                 <select id="country">
-                    <option value="">Select Country</option>
+                    <option value="">SELECT COUNTRY</option>
                     <option>Pakistan</option>
                     <option>India</option>
                     <option>Indonesia</option>
@@ -212,6 +239,7 @@
                     <option>Sudan</option>
                     <option>Kyrgyzstan</option>
                     <option>Ukraine</option>
+                    <option>Venezuela</option>
                 </select>
             </div>
             <div class="input-group">
@@ -227,9 +255,7 @@
                 <input type="password" id="confirmPass" placeholder="Confirm password">
             </div>
             <button class="btn" onclick="handleRegister()">SUBMIT REGISTRATION</button>
-            <div class="info-note">
-                <i>🔒 Registration requires admin approval</i>
-            </div>
+            <div class="info-note">Registration requires admin approval</div>
         </div>
 
         <div class="support">
@@ -238,7 +264,8 @@
     </div>
 
     <script>
-        // Show tab function
+        let currentUser = null;
+
         function showTab(tab) {
             const loginForm = document.getElementById('loginForm');
             const registerForm = document.getElementById('registerForm');
@@ -257,13 +284,12 @@
             }
         }
 
-        // Random security question
+        // Security question
         const num1 = Math.floor(Math.random() * 10) + 1;
         const num2 = Math.floor(Math.random() * 10) + 1;
         document.getElementById('securityQuestion').innerHTML = num1 + ' + ' + num2 + ' = ?';
         const correctAnswer = (num1 + num2).toString();
 
-        // Handle Login
         function handleLogin() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
@@ -274,19 +300,16 @@
                 return;
             }
 
-            // Check admin
             if(username === 'Syedhacker' && password === '0345Syeddlr') {
-                alert('Access Granted! Welcome Admin.');
+                localStorage.setItem('currentUser', JSON.stringify({username: 'Syedhacker', isAdmin: true}));
                 window.location.href = 'admin.html';
                 return;
             }
 
-            // Check normal users
             const users = JSON.parse(localStorage.getItem('users') || '[]');
             const user = users.find(u => u.username === username && u.password === password);
 
             if(user && user.approved) {
-                alert('Access Granted! Welcome ' + username);
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 window.location.href = 'dashboard.html';
             } else if(user && !user.approved) {
@@ -296,7 +319,6 @@
             }
         }
 
-        // Handle Register
         function handleRegister() {
             const fullname = document.getElementById('fullname').value;
             const country = document.getElementById('country').value;
@@ -305,7 +327,7 @@
             const confirmPass = document.getElementById('confirmPass').value;
 
             if(!fullname || !country || !username || !password) {
-                alert('Please fill all fields!');
+                alert('Fill all fields!');
                 return;
             }
 
@@ -318,34 +340,18 @@
             const pending = JSON.parse(localStorage.getItem('pending') || '[]');
 
             if(users.find(u => u.username === username) || pending.find(u => u.username === username)) {
-                alert('Username already exists!');
+                alert('Username exists!');
                 return;
             }
 
-            const newUser = {
-                id: Date.now(),
-                fullname: fullname,
-                country: country,
-                username: username,
-                password: password,
-                approved: false,
-                createdAt: new Date().toISOString()
-            };
-
-            pending.push(newUser);
+            pending.push({id: Date.now(), fullname, country, username, password, approved: false});
             localStorage.setItem('pending', JSON.stringify(pending));
-
-            alert('Registration submitted! Wait for admin approval.');
+            alert('Registration submitted! Wait for approval.');
             showTab('login');
         }
 
-        // Initialize users
-        if(!localStorage.getItem('users')) {
-            localStorage.setItem('users', JSON.stringify([]));
-        }
-        if(!localStorage.getItem('pending')) {
-            localStorage.setItem('pending', JSON.stringify([]));
-        }
+        if(!localStorage.getItem('users')) localStorage.setItem('users', '[]');
+        if(!localStorage.getItem('pending')) localStorage.setItem('pending', '[]');
     </script>
 </body>
 </html>
